@@ -41,7 +41,12 @@ class _SuraScreenState extends State<SuraScreen> {
           ),
         ),
         body: Container(
-          color: AppTheme.white,
+          padding: EdgeInsets.all(15),
+          margin: EdgeInsets.all(15),
+          decoration: BoxDecoration(
+            color: AppTheme.white,
+            borderRadius: BorderRadius.circular(25),
+          ),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
