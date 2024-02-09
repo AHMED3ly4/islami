@@ -12,7 +12,7 @@ class SuraScreen extends StatefulWidget {
 class _SuraScreenState extends State<SuraScreen> {
   List<String>suraAyat=[];
   Future<void> getAyat (index)async{
-    String sura = await rootBundle.loadString('assets/files/$index.txt');
+    String sura = await rootBundle.loadString('assets/quran/$index.txt');
     sura=sura.trim();
     suraAyat = sura.split('\n');
     int counter=1;
@@ -41,8 +41,8 @@ class _SuraScreenState extends State<SuraScreen> {
           ),
         ),
         body: Container(
-          padding: EdgeInsets.all(15),
-          margin: EdgeInsets.all(15),
+          padding: const EdgeInsets.all(15),
+          margin: const EdgeInsets.all(15),
           decoration: BoxDecoration(
             color: AppTheme.white,
             borderRadius: BorderRadius.circular(25),
@@ -50,9 +50,16 @@ class _SuraScreenState extends State<SuraScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Text(
-                'سورة ${sura.name}',
-              style: AppTheme.lightTheme.textTheme.bodyLarge,
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(
+                    'سورة ${sura.name}',
+                  style: AppTheme.lightTheme.textTheme.bodyLarge,
+                  ),
+                  SizedBox(width: 15,),
+                  Icon(Icons.play_circle,color: AppTheme.black,)
+                ],
               ),
               Container(
                 height: 2,
