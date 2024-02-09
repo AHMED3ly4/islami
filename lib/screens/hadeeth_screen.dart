@@ -1,33 +1,37 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:islami/app_theme.dart';
-import 'package:islami/widget/sura.dart';
+import 'package:islami/widget/hadeeth.dart';
 
-class SuraScreen extends StatefulWidget {
-  static const routeName = 'sura screen name';
+import '../app_theme.dart';
+
+class HadeethScreen extends StatefulWidget {
+  static const routeName='hadeeth name rout';
   @override
-  State<SuraScreen> createState() => _SuraScreenState();
+  State<HadeethScreen> createState() => _HadeethScreenState();
 }
 
-class _SuraScreenState extends State<SuraScreen> {
-  List<String>suraAyat=[];
-  Future<void> getAyat (index)async{
-    String sura = await rootBundle.loadString('assets/quran/$index.txt');
-    sura=sura.trim();
-    suraAyat = sura.split('\n');
-    int counter=1;
-    for(int i=1 ; i<=suraAyat.length;i+=2){
-      suraAyat.insert(i, ('($counter)'));
-      counter++;
-    } //1,3,5..
+class _HadeethScreenState extends State<HadeethScreen> {
+  Hadeeth? hadeeth;
+  Future<void> getHadeeth(index) async{
+    String ahadeeth = await rootBundle.loadString('assets/ahadeeth/ahadeeth.txt');
 
+    List<String> totalaHadeeth=ahadeeth.split('#');
+    List<String> ourHadeeth=totalaHadeeth[index].trim().split('\n');
+    String hadeethNumber= ourHadeeth[0];
+    ourHadeeth.removeAt(0);
+    List<String> hadeethContent =ourHadeeth;
+    hadeeth =Hadeeth(
+      hadeethNumber: hadeethNumber,
+      hadeethContent: hadeethContent,
+    );
     setState(() {
+
     });
-  }
+}
   @override
   Widget build(BuildContext context) {
-    Sura sura =ModalRoute.of(context)!.settings.arguments as Sura;
-    suraAyat.isEmpty? getAyat(sura.fileIndex): null;
+    int arg =ModalRoute.of(context)!.settings.arguments as int;
+    hadeeth == null ? getHadeeth(arg) : null;
     return Container(
       decoration: const BoxDecoration(
         image: DecorationImage(image: AssetImage('assets/images/bg3.png'),
@@ -40,7 +44,7 @@ class _SuraScreenState extends State<SuraScreen> {
             'إسلامي',
           ),
         ),
-        body: Container(
+        body: hadeeth==null? const CircularProgressIndicator():Container(
           padding: const EdgeInsets.all(15),
           margin: const EdgeInsets.all(15),
           decoration: BoxDecoration(
@@ -50,30 +54,23 @@ class _SuraScreenState extends State<SuraScreen> {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    'سورة ${sura.name}',
-                  style: AppTheme.lightTheme.textTheme.bodyLarge,
-                  ),
-                  SizedBox(width: 15,),
-                  Icon(Icons.play_circle,color: AppTheme.black,)
-                ],
+              Text(
+                '${hadeeth!.hadeethNumber}',
+                style: AppTheme.lightTheme.textTheme.bodyLarge,
               ),
               Container(
                 height: 2,
                 width: MediaQuery.of(context).size.width *0.6,
                 color:  AppTheme.primaryColor,
               ),
-              suraAyat.isEmpty?const CircularProgressIndicator(): Expanded(
+              Expanded(
                 child: ListView.builder(
                   itemBuilder: (context,index)=> Text(
-                      suraAyat[index],
+                    hadeeth!.hadeethContent[index],
                     style: const TextStyle(fontSize: 22),
                     textAlign: TextAlign.center,
                   ),
-                  itemCount: suraAyat.length,
+                  itemCount: hadeeth!.hadeethContent.length,
                 ),
               ),
             ],
