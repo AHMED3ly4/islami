@@ -44,6 +44,11 @@ class AppTheme{
         fontWeight: FontWeight.w400,
         fontSize: 20,
       ),
+      titleMedium: GoogleFonts.elMessiri(
+        color: black,
+        fontSize: 25,
+        fontWeight: FontWeight.w600,
+      ),
     ),
   );
 }
