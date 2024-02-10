@@ -9,6 +9,7 @@ class AppTheme{
   static Color white=Colors.white;
   static ThemeData lightTheme= ThemeData(
     appBarTheme: AppBarTheme(
+      foregroundColor: black,
           backgroundColor: Colors.transparent,
         centerTitle: true,
         elevation: 0,
@@ -34,6 +35,19 @@ class AppTheme{
       headlineLarge: GoogleFonts.elMessiri(
         fontWeight: FontWeight.w600,
         fontSize: 30,
+      ),
+      bodyLarge: GoogleFonts.inter(
+        fontWeight: FontWeight.w400,
+        fontSize: 25,
+      ),
+      headlineMedium: GoogleFonts.inter(
+        fontWeight: FontWeight.w400,
+        fontSize: 20,
+      ),
+      titleMedium: GoogleFonts.elMessiri(
+        color: black,
+        fontSize: 25,
+        fontWeight: FontWeight.w600,
       ),
     ),
   );

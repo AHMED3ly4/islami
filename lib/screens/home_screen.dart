@@ -30,6 +30,10 @@ int selectedTab=0;
         ),
       ),
       child: Scaffold(
+        appBar: AppBar(
+          title:  Text('إسلامي',
+          ),
+        ),
         bottomNavigationBar: BottomNavigationBar(
             items: [
               BottomNavigationBarItem(
@@ -59,10 +63,6 @@ int selectedTab=0;
               setState(() {
               });
           },
-        ),
-        appBar: AppBar(
-          title:  Text('إسلامي',
-          ),
         ),
         body: tabs[selectedTab],
       ),
