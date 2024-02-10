@@ -27,6 +27,10 @@ class AppTheme{
       unselectedLabelStyle: TextStyle(color: Colors.white,fontWeight: FontWeight.bold),
       type: BottomNavigationBarType.fixed,
     ),
+    iconTheme: IconThemeData(
+      color: primaryColor,
+      size: 70
+    ),
     textTheme: TextTheme(
       headlineSmall: GoogleFonts.elMessiri(
         fontWeight: FontWeight.w600,
