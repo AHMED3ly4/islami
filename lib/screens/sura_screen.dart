@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami/app_theme.dart';
 import 'package:islami/widget/sura.dart';
+import 'package:provider/provider.dart';
+
+import '../setting_provider.dart';
 
 class SuraScreen extends StatefulWidget {
   static const routeName = 'sura screen name';
@@ -26,11 +29,15 @@ class _SuraScreenState extends State<SuraScreen> {
   }
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider =Provider.of<SettingProvider>(context);
     Sura sura =ModalRoute.of(context)!.settings.arguments as Sura;
     suraAyat.isEmpty? getAyat(sura.fileIndex): null;
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(image: AssetImage('assets/images/bg3.png'),
+    bool isDark =settingProvider.appMode ==ThemeMode.dark;
+     return Container(
+      decoration:  BoxDecoration(
+        image: DecorationImage(image: AssetImage(
+            isDark ? 'assets/images/bg_dark.png':'assets/images/bg3.png'
+        ),
           fit: BoxFit.cover,
         ),
       ),
@@ -44,7 +51,7 @@ class _SuraScreenState extends State<SuraScreen> {
           padding: const EdgeInsets.all(15),
           margin: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: AppTheme.white,
+            color: isDark ? Theme.of(context).primaryColor:AppTheme.white,
             borderRadius: BorderRadius.circular(25),
           ),
           child: Column(
@@ -55,22 +62,24 @@ class _SuraScreenState extends State<SuraScreen> {
                 children: [
                   Text(
                     'سورة ${sura.name}',
-                  style: AppTheme.lightTheme.textTheme.bodyLarge,
+                  style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                    color: isDark ? AppTheme.gold:null,
+                  ),
                   ),
                   SizedBox(width: 15,),
-                  Icon(Icons.play_circle,color: AppTheme.black,)
+                  Icon(Icons.play_circle,color: isDark ? AppTheme.gold:AppTheme.black,)
                 ],
               ),
               Container(
                 height: 2,
                 width: MediaQuery.of(context).size.width *0.6,
-                color:  AppTheme.primaryColor,
+                color:  isDark ? AppTheme.gold: Theme.of(context).primaryColor,
               ),
               suraAyat.isEmpty?const CircularProgressIndicator(): Expanded(
                 child: ListView.builder(
                   itemBuilder: (context,index)=> Text(
                       suraAyat[index],
-                    style: const TextStyle(fontSize: 22),
+                    style: Theme.of(context).textTheme.headlineMedium,
                     textAlign: TextAlign.center,
                   ),
                   itemCount: suraAyat.length,

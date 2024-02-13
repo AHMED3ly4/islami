@@ -37,6 +37,10 @@ dependencies:
   cupertino_icons: ^1.0.2
   flutter_native_splash: ^2.3.7
   google_fonts: ^6.1.0
+  provider: ^6.1.1
+  flutter_localizations:
+    sdk: flutter
+
 
 
 dev_dependencies:

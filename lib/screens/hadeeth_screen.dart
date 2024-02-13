@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:islami/widget/hadeeth.dart';
+import 'package:provider/provider.dart';
 
 import '../app_theme.dart';
+import '../setting_provider.dart';
 
 class HadeethScreen extends StatefulWidget {
   static const routeName='hadeeth name rout';
@@ -32,9 +34,13 @@ class _HadeethScreenState extends State<HadeethScreen> {
   Widget build(BuildContext context) {
     int arg =ModalRoute.of(context)!.settings.arguments as int;
     hadeeth == null ? getHadeeth(arg) : null;
+    SettingProvider settingProvider =Provider.of<SettingProvider>(context);
+    bool isDark =settingProvider.appMode ==ThemeMode.dark;
     return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(image: AssetImage('assets/images/bg3.png'),
+      decoration:  BoxDecoration(
+        image: DecorationImage(image: AssetImage(
+          isDark? 'assets/images/bg_dark.png':'assets/images/bg3.png',
+        ),
           fit: BoxFit.cover,
         ),
       ),
@@ -48,7 +54,7 @@ class _HadeethScreenState extends State<HadeethScreen> {
           padding: const EdgeInsets.all(15),
           margin: const EdgeInsets.all(15),
           decoration: BoxDecoration(
-            color: AppTheme.white,
+            color: isDark ? Theme.of(context).primaryColor:AppTheme.white,
             borderRadius: BorderRadius.circular(25),
           ),
           child: Column(
@@ -56,18 +62,20 @@ class _HadeethScreenState extends State<HadeethScreen> {
             children: [
               Text(
                 '${hadeeth!.hadeethNumber}',
-                style: AppTheme.lightTheme.textTheme.bodyLarge,
+                style: Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: isDark?AppTheme.gold:null,
+                ),
               ),
               Container(
                 height: 2,
                 width: MediaQuery.of(context).size.width *0.6,
-                color:  AppTheme.primaryColor,
+                color:  isDark?AppTheme.gold:Theme.of(context).primaryColor,
               ),
               Expanded(
                 child: ListView.builder(
                   itemBuilder: (context,index)=> Text(
                     hadeeth!.hadeethContent[index],
-                    style: const TextStyle(fontSize: 22),
+                    style: Theme.of(context).textTheme.headlineMedium,
                     textAlign: TextAlign.center,
                   ),
                   itemCount: hadeeth!.hadeethContent.length,

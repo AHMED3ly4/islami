@@ -3,9 +3,15 @@ import 'package:islami/app_theme.dart';
 import 'package:islami/screens/hadeeth_screen.dart';
 import 'package:islami/screens/home_screen.dart';
 import 'package:islami/screens/sura_screen.dart';
+import 'package:islami/setting_provider.dart';
+import 'package:provider/provider.dart';
 
 void main() {
-  runApp(IslamiApp());
+  runApp(ChangeNotifierProvider(
+    create: (c)=>SettingProvider(),
+      child: IslamiApp(),
+  ),
+  );
 }
 
 class IslamiApp extends StatelessWidget {
@@ -15,6 +21,8 @@ class IslamiApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: Provider.of<SettingProvider>(context).appMode,
       routes: {
         HomeScreen.routeName : (context)=>HomeScreen(),
         SuraScreen.routeName : (context)=>SuraScreen(),

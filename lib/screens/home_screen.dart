@@ -4,6 +4,9 @@ import 'package:islami/tabs/quran_tab.dart';
 import 'package:islami/tabs/radio_tab.dart';
 import 'package:islami/tabs/sebha_tab.dart';
 import 'package:islami/tabs/setting_tab.dart';
+import 'package:provider/provider.dart';
+
+import '../setting_provider.dart';
 
 class HomeScreen extends StatefulWidget {
   static const routeName ='home screen name';
@@ -23,9 +26,12 @@ List<Widget> tabs=[
 int selectedTab=0;
   @override
   Widget build(BuildContext context) {
+    SettingProvider settingProvider =Provider.of<SettingProvider>(context);
     return Container(
       decoration: BoxDecoration(
-        image: DecorationImage(image: AssetImage('assets/images/bg3.png'),
+        image: DecorationImage(image: AssetImage(
+            settingProvider.appMode == ThemeMode.dark? 'assets/images/bg_dark.png':'assets/images/bg3.png'
+        ),
             fit: BoxFit.cover,
         ),
       ),
