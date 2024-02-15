@@ -13,9 +13,9 @@ class RadioTab extends StatelessWidget {
         ),
         Text(
             'إذاعة القران الكريم',
-          style: AppTheme.lightTheme.textTheme.titleMedium,
+          style: Theme.of(context).textTheme.titleMedium,
         ),
-        Row(
+        const Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             Icon(Icons.skip_previous),
