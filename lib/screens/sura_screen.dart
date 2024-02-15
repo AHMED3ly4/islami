@@ -3,7 +3,7 @@ import 'package:flutter/services.dart';
 import 'package:islami/app_theme.dart';
 import 'package:islami/widget/sura.dart';
 import 'package:provider/provider.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../setting_provider.dart';
 
 class SuraScreen extends StatefulWidget {
@@ -16,14 +16,15 @@ class _SuraScreenState extends State<SuraScreen> {
   List<String>suraAyat=[];
   Future<void> getAyat (index)async{
     String sura = await rootBundle.loadString('assets/quran/$index.txt');
-    sura=sura.trim();
-    suraAyat = sura.split('\n');
-    int counter=1;
-    for(int i=1 ; i<=suraAyat.length;i+=2){
-      suraAyat.insert(i, ('($counter)'));
-      counter++;
-    } //1,3,5..
-
+    suraAyat = sura.trim().split('\n');
+    // int counter=1;
+    // for(int i=1 ; i<=suraAyat.length;i+=2){
+    //   suraAyat.insert(i, ('($counter)'));
+    //   counter++;
+    // } //1,3,5..
+    for(int i=0 ;i<suraAyat.length;i++){
+      suraAyat[i]+=('(${i+1})');
+    }
     setState(() {
     });
   }
@@ -43,8 +44,8 @@ class _SuraScreenState extends State<SuraScreen> {
       ),
       child: Scaffold(
         appBar: AppBar(
-          title: const Text(
-            'إسلامي',
+          title:  Text(
+            AppLocalizations.of(context)!.islami,
           ),
         ),
         body: Container(
@@ -66,11 +67,12 @@ class _SuraScreenState extends State<SuraScreen> {
                     color: isDark ? AppTheme.gold:null,
                   ),
                   ),
-                  SizedBox(width: 15,),
+                  const SizedBox(width: 15,),
                   Icon(Icons.play_circle,color: isDark ? AppTheme.gold:AppTheme.black,)
                 ],
               ),
               Container(
+                margin: const EdgeInsets.symmetric(vertical: 10),
                 height: 2,
                 width: MediaQuery.of(context).size.width *0.6,
                 color:  isDark ? AppTheme.gold: Theme.of(context).primaryColor,
@@ -80,7 +82,7 @@ class _SuraScreenState extends State<SuraScreen> {
                   itemBuilder: (context,index)=> Text(
                       suraAyat[index],
                     style: Theme.of(context).textTheme.headlineMedium,
-                    textAlign: TextAlign.center,
+                    textDirection: TextDirection.rtl,
                   ),
                   itemCount: suraAyat.length,
                 ),

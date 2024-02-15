@@ -50,7 +50,7 @@ class AppTheme{
         fontSize: 25,
         color: black,
       ),
-      headlineMedium: GoogleFonts.inter(
+      headlineMedium: GoogleFonts.elMessiri(
         fontWeight: FontWeight.w400,
         fontSize: 20,
         color: black,
@@ -105,7 +105,7 @@ class AppTheme{
         fontSize: 25,
         color: white,
       ),
-      headlineMedium: GoogleFonts.inter(
+      headlineMedium: GoogleFonts.elMessiri(
         fontWeight: FontWeight.w400,
         fontSize: 20,
         color: gold,
